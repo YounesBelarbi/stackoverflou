@@ -13,10 +13,13 @@ app.use(bodyParser.json())
 const cors = require('cors');
 app.use(cors());
 
+const userRoutes = require('./routes/userRoutes');
+
 app.get('/', function (req, res, next) {
     res.json({status:200, msg:'success'});
 })
 
+userRoutes(app);
 
 app.listen(port, () => {
     console.log(`listening on port ${port}`);
