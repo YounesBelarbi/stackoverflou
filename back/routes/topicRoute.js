@@ -14,4 +14,10 @@ module.exports = (app) => {
         const result = await topic.save(); 
         res.json({status:200, result:result});
     })
+
+    app.get('/api/topic/all', async (req, res) => {
+        const topics = await Topic.find();
+        res.json({status:200, topics: topics});
+
+    })
 }
