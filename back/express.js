@@ -14,12 +14,15 @@ const cors = require('cors');
 app.use(cors());
 
 const userRoutes = require('./routes/userRoutes');
+const topicRoutes = require('./routes/topicRoute');
+
 
 app.get('/', function (req, res, next) {
     res.json({status:200, msg:'success'});
 })
 
 userRoutes(app);
+topicRoutes(app);
 
 app.listen(port, () => {
     console.log(`listening on port ${port}`);
