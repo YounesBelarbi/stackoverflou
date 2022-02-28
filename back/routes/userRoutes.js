@@ -1,5 +1,10 @@
+require('dotenv').config();
+
+
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+const jwtToken = require('jsonwebtoken');
+const secret = process.env.SECRET
 
 
 module.exports = (app) => {
@@ -26,5 +31,23 @@ module.exports = (app) => {
         const id = req.params.id;
         const user = await User.find({_id: id});
         res.json({status:200, result: user[0]});
+    })
+
+    app.post('/api/user/login', async (req, res) => {
+        const user = await User.find({email: req.body.email});
+
+        if (user.length <= 0) { 
+            res.json({status:404, msg: 'email not found'});
+        } else {
+            const passwordCheck = await bcrypt.compare(req.body.password, user[0].password);
+
+            if (passwordCheck) {
+                const payload = {email: user[0].email, id: user[0]._id};
+                const token = jwtToken.sign(payload, secret);              
+                res.json({status:200, data: {token, user: user[0]}});
+            } else {
+                res.json({status:401, msg:'not allowed bad password'});
+            }
+        } 
     })
 }
