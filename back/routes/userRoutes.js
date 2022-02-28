@@ -12,7 +12,7 @@ module.exports = (app) => {
         }
 
         const user = await User(data);
-        const result = user.save(); 
+        const result = await user.save(); 
         res.json({status:200, result:result});
     })
 }
