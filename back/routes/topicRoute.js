@@ -20,4 +20,10 @@ module.exports = (app) => {
         res.json({status:200, topics: topics});
 
     })
+    
+    app.get('/api/topic/:id', async (req, res) => {
+        const id = req.params.id;
+        const topic = await Topic.find({_id: id});
+        res.json({status:200, result: topic[0]});
+    })
 }
