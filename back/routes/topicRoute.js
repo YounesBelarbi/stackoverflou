@@ -26,4 +26,15 @@ module.exports = (app) => {
         const topic = await Topic.find({_id: id});
         res.json({status:200, result: topic[0]});
     })
+
+    app.patch('/api/topic/update/:id', async (req, res) => {
+        const id = req.params.id;
+        const data = {
+            title: req.body.title,
+            description: req.body.description
+        }
+
+        const result = await Topic.updateOne({_id: id}, data);
+        res.json({status:200, result});
+    })
 }
