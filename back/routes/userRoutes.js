@@ -8,7 +8,7 @@ const secret = process.env.SECRET
 
 
 module.exports = (app) => {
-    const User = require('../bdd/models/user');
+    const UserModel = require('../bdd/models/user');
 
     app.post('/api/user/save', async (req, res) => {
 
@@ -22,19 +22,19 @@ module.exports = (app) => {
             creationDate: new Date(),
         }
 
-        const user = await User(data);
+        const user = await UserModel(data);
         const result = await user.save(); 
         res.json({status:200, result:result});
     })
 
     app.get('/api/user/:id', async (req, res) => {
         const id = req.params.id;
-        const user = await User.find({_id: id});
+        const user = await UserModel.find({_id: id});
         res.json({status:200, result: user[0]});
     })
 
     app.post('/api/user/login', async (req, res) => {
-        const user = await User.find({email: req.body.email});
+        const user = await UserModel.find({email: req.body.email});
 
         if (user.length <= 0) { 
             res.json({status:404, msg: 'email not found'});

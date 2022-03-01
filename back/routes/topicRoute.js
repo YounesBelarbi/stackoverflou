@@ -1,5 +1,5 @@
 module.exports = (app) => {
-    const Topic = require('../bdd/models/topic');
+    const TopicModel = require('../bdd/models/topic');
 
     app.post('/api/topic/save', async (req, res) => {
 
@@ -10,20 +10,20 @@ module.exports = (app) => {
             creationDate: Date.now()
         }
 
-        const topic = await Topic(data);
+        const topic = await TopicModel(data);
         const result = await topic.save(); 
         res.json({status:200, result:result});
     })
 
     app.get('/api/topic/all', async (req, res) => {
-        const topics = await Topic.find();
+        const topics = await TopicModel.find();
         res.json({status:200, topics: topics});
 
     })
     
     app.get('/api/topic/:id', async (req, res) => {
         const id = req.params.id;
-        const topic = await Topic.find({_id: id});
+        const topic = await TopicModel.find({_id: id});
         res.json({status:200, result: topic[0]});
     })
 
@@ -34,14 +34,14 @@ module.exports = (app) => {
             description: req.body.description
         }
 
-        const result = await Topic.updateOne({_id: id}, data);
+        const result = await TopicModel.updateOne({_id: id}, data);
         res.json({status:200, result});
     })
 
 
     app.delete('/api/topic/delete/:id', async (req, res) => {
         const id = req.params.id;
-        const result = await Topic.deleteOne({_id: id});
+        const result = await TopicModel.deleteOne({_id: id});
         res.json({status:200, result});
     })
 }
