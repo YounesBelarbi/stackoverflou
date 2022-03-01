@@ -37,4 +37,11 @@ module.exports = (app) => {
         const result = await Topic.updateOne({_id: id}, data);
         res.json({status:200, result});
     })
+
+
+    app.delete('/api/topic/delete/:id', async (req, res) => {
+        const id = req.params.id;
+        const result = await Topic.deleteOne({_id: id});
+        res.json({status:200, result});
+    })
 }
