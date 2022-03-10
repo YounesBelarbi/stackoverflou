@@ -22,32 +22,32 @@ module.exports = (app) => {
             creationDate: new Date(),
         }
 
-        const user = await UserModel(data);
-        const result = await user.save(); 
-        res.json({status:200, result:result});
+        const user = await new UserModel(data);
+        const result = await user.save();
+        res.json({ status: 200, result: result });
     })
 
     app.get('/api/user/:id', async (req, res) => {
         const id = req.params.id;
-        const user = await UserModel.find({_id: id});
-        res.json({status:200, result: user[0]});
+        const user = await UserModel.find({ _id: id });
+        res.json({ status: 200, result: user[0] });
     })
 
     app.post('/api/user/login', async (req, res) => {
-        const user = await UserModel.find({email: req.body.email});
+        const user = await UserModel.find({ email: req.body.email });
 
-        if (user.length <= 0) { 
-            res.json({status:404, msg: 'email not found'});
+        if (user.length <= 0) {
+            res.json({ status: 404, msg: 'email not found' });
         } else {
             const passwordCheck = await bcrypt.compare(req.body.password, user[0].password);
 
             if (passwordCheck) {
-                const payload = {email: user[0].email, id: user[0]._id};
-                const token = jwtToken.sign(payload, secret);              
-                res.json({status:200, data: {token, user: user[0]}});
+                const payload = { email: user[0].email, id: user[0]._id };
+                const token = jwtToken.sign(payload, secret);
+                res.json({ status: 200, data: { token, user: user[0] } });
             } else {
-                res.json({status:401, msg:'not allowed bad password'});
+                res.json({ status: 401, msg: 'not allowed bad password' });
             }
-        } 
+        }
     })
 }

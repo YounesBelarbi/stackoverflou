@@ -10,21 +10,21 @@ module.exports = (app) => {
             creationDate: Date.now()
         }
 
-        const topic = await TopicModel(data);
-        const result = await topic.save(); 
-        res.json({status:200, result:result});
+        const topic = await new TopicModel(data);
+        const result = await topic.save();
+        res.json({ status: 200, result: result });
     })
 
     app.get('/api/topic/all', async (req, res) => {
         const topics = await TopicModel.find();
-        res.json({status:200, topics: topics});
+        res.json({ status: 200, topics: topics });
 
     })
-    
+
     app.get('/api/topic/:id', async (req, res) => {
         const id = req.params.id;
-        const topic = await TopicModel.find({_id: id});
-        res.json({status:200, result: topic[0]});
+        const topic = await TopicModel.find({ _id: id });
+        res.json({ status: 200, result: topic[0] });
     })
 
     app.patch('/api/topic/update/:id', async (req, res) => {
@@ -34,14 +34,14 @@ module.exports = (app) => {
             description: req.body.description
         }
 
-        const result = await TopicModel.updateOne({_id: id}, data);
-        res.json({status:200, result});
+        const result = await TopicModel.updateOne({ _id: id }, data);
+        res.json({ status: 200, result });
     })
 
 
     app.delete('/api/topic/delete/:id', async (req, res) => {
         const id = req.params.id;
-        const result = await TopicModel.deleteOne({_id: id});
-        res.json({status:200, result});
+        const result = await TopicModel.deleteOne({ _id: id });
+        res.json({ status: 200, result });
     })
 }
