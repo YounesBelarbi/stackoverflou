@@ -13,4 +13,10 @@ module.exports = (app) => {
         const result = await message.save();
         res.json({ status: 200, result: result });
     })
+
+    app.get('/api/message/all', async (req, res) => {
+        const messages = await MessageModel.find();
+        res.json({ status: 200, messages });
+
+    })
 }
