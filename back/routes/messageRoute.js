@@ -17,6 +17,11 @@ module.exports = (app) => {
     app.get('/api/message/all', async (req, res) => {
         const messages = await MessageModel.find();
         res.json({ status: 200, messages });
+    })
 
+    app.get('/api/message/:id', async (req, res) => {
+        const id = req.params.id;
+        const message = await MessageModel.findOne({ _id: id });
+        res.json({ status: 200, result: message });
     })
 }

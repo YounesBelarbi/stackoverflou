@@ -29,8 +29,8 @@ module.exports = (app) => {
 
     app.get('/api/user/:id', async (req, res) => {
         const id = req.params.id;
-        const user = await UserModel.find({ _id: id });
-        res.json({ status: 200, result: user[0] });
+        const user = await UserModel.findOne({ _id: id });
+        res.json({ status: 200, result: user });
     })
 
     app.post('/api/user/login', async (req, res) => {
