@@ -1,0 +1,16 @@
+module.exports = (app) => {
+    const MessageModel = require('../bdd/models/message');
+
+    app.post('/api/message/save', async (req, res) => {
+        const data = {
+            content: req.body.content,
+            topic_id: req.body.topic_id,
+            user_id: req.body.user_id,
+            creationDate: Date.now()
+        }
+
+        const message = await new MessageModel(data);
+        const result = await message.save();
+        res.json({ status: 200, result: result });
+    })
+}
