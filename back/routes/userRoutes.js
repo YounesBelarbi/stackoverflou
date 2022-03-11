@@ -34,20 +34,21 @@ module.exports = (app) => {
     })
 
     app.post('/api/user/login', async (req, res) => {
-        const user = await UserModel.find({ email: req.body.email });
+        const user = await UserModel.findOne({ email: req.body.email });
 
-        if (user.length <= 0) {
-            res.json({ status: 404, msg: 'email not found' });
-        } else {
-            const passwordCheck = await bcrypt.compare(req.body.password, user[0].password);
+        if (user) {
+            const passwordCheck = await bcrypt.compare(req.body.password, user.password);
 
             if (passwordCheck) {
-                const payload = { email: user[0].email, id: user[0]._id };
+                const payload = { email: user.email, id: user._id };
                 const token = jwtToken.sign(payload, secret);
-                res.json({ status: 200, data: { token, user: user[0] } });
+                res.json({ status: 200, data: { token, user: user } });
             } else {
                 res.json({ status: 401, msg: 'not allowed bad password' });
             }
+        } else {
+            res.json({ status: 404, msg: 'email not found' });
+
         }
     })
 }
