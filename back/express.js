@@ -14,8 +14,9 @@ const cors = require('cors');
 app.use(cors());
 
 const userRoutes = require('./routes/userRoutes');
-const topicRoutes = require('./routes/topicRoute');
-const messageRoute = require('./routes/messageRoute');
+const topicRoutes = require('./routes/topicRoutes');
+const messageRoutes = require('./routes/messageRoutes');
+const authRoutes = require('./routes/authRoutes');
 
 
 app.get('/', function (req, res, next) {
@@ -24,7 +25,8 @@ app.get('/', function (req, res, next) {
 
 userRoutes(app);
 topicRoutes(app);
-messageRoute(app);
+messageRoutes(app);
+authRoutes(app);
 
 app.listen(port, () => {
     console.log(`listening on port ${port}`);
