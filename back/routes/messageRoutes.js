@@ -1,8 +1,10 @@
+const authenticateJWT = require('../authMiddleware');
+
 module.exports = (app) => {
     const MessageModel = require('../bdd/models/message');
     const UserModel = require('../bdd/models/user');
 
-    app.post('/api/message/save', async (req, res) => {
+    app.post('/api/message/save', authenticateJWT, async (req, res) => {
         const data = {
             content: req.body.content,
             topic_id: req.body.topic_id,
@@ -45,7 +47,7 @@ module.exports = (app) => {
         res.json({ status: 200, data: { msg: "message by topic", completeMessages } });
     })
 
-    app.patch('/api/message/update/:id', async (req, res) => {
+    app.patch('/api/message/update/:id', authenticateJWT, async (req, res) => {
         const id = req.params.id;
         const data = {
             content: req.body.content,
@@ -56,7 +58,7 @@ module.exports = (app) => {
     })
 
 
-    app.delete('/api/message/delete/:id', async (req, res) => {
+    app.delete('/api/message/delete/:id', authenticateJWT, async (req, res) => {
         const id = req.params.id;
         const result = await MessageModel.deleteOne({ _id: id });
         res.json({ status: 200, result });

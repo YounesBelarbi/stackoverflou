@@ -1,7 +1,10 @@
+const authenticateJWT = require('../authMiddleware');
+
+
 module.exports = (app) => {
     const TopicModel = require('../bdd/models/topic');
 
-    app.post('/api/topic/save', async (req, res) => {
+    app.post('/api/topic/save', authenticateJWT, async (req, res) => {
 
         const data = {
             title: req.body.title,
@@ -27,7 +30,7 @@ module.exports = (app) => {
         res.json({ status: 200, result: topic });
     })
 
-    app.patch('/api/topic/update/:id', async (req, res) => {
+    app.patch('/api/topic/update/:id', authenticateJWT, async (req, res) => {
         const id = req.params.id;
         const data = {
             title: req.body.title,
@@ -39,7 +42,7 @@ module.exports = (app) => {
     })
 
 
-    app.delete('/api/topic/delete/:id', async (req, res) => {
+    app.delete('/api/topic/delete/:id', authenticateJWT, async (req, res) => {
         const id = req.params.id;
         const result = await TopicModel.deleteOne({ _id: id });
         res.json({ status: 200, result });
