@@ -44,4 +44,22 @@ module.exports = (app) => {
         console.log(completeMessages);
         res.json({ status: 200, data: { msg: "message by topic", completeMessages } });
     })
+
+    app.patch('/api/message/update/:id', async (req, res) => {
+        const id = req.params.id;
+        const data = {
+            content: req.body.content,
+        }
+
+        const result = await MessageModel.updateOne({ _id: id }, data);
+        res.json({ status: 200, result });
+    })
+
+
+    app.delete('/api/message/delete/:id', async (req, res) => {
+        const id = req.params.id;
+        const result = await MessageModel.deleteOne({ _id: id });
+        res.json({ status: 200, result });
+    })
+
 }
