@@ -14,14 +14,21 @@ const cors = require('cors');
 app.use(cors());
 
 const userRoutes = require('./routes/userRoutes');
+const topicRoutes = require('./routes/topicRoutes');
+const messageRoutes = require('./routes/messageRoutes');
+const authRoutes = require('./routes/authRoutes');
+
 
 app.get('/', function (req, res, next) {
-    res.json({status:200, msg:'success'});
+    res.json({ status: 200, msg: 'success' });
 })
 
 userRoutes(app);
+topicRoutes(app);
+messageRoutes(app);
+authRoutes(app);
 
 app.listen(port, () => {
     console.log(`listening on port ${port}`);
-    mongoDBClient(); 
+    mongoDBClient();
 })
