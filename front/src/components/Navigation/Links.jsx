@@ -1,21 +1,17 @@
-import { StyledLinks_ul, StyledLinks_a } from '../Styles/navigation/Links.styled';
+import { StyledUl, StyledLink } from '../Styles/navigation/Links.styled';
 
 
-const Links = () => {
+function Links() {
   return (
-    <StyledLinks_ul>
+    <StyledUl>
       <li>
-        <StyledLinks_a color="#7aa7c7" bg="#e1ecf4" bg_hover="#a8d6f7">
-          se connecter
-        </StyledLinks_a>
+        <StyledLink to="/login" color="#7aa7c7" bg="#e1ecf4" bg_hover="#a8d6f7">Se connecter</StyledLink>
       </li>
       <li>
-        <StyledLinks_a color="#fff" bg="#0a95ff" bg_hover="#067ad3">
-          s'inscrire
-        </StyledLinks_a>
+        <StyledLink to="/register" color="#fff" bg="#0a95ff" bg_hover="#067ad3">S'inscrire</StyledLink>
       </li>
-    </StyledLinks_ul>
-  )
+    </StyledUl>
+  );
 }
 
 export default Links;

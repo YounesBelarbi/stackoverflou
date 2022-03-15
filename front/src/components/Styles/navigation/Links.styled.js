@@ -1,16 +1,16 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
-export const StyledLinks_ul = styled.ul`
 
+export const StyledUl = styled.ul`
     display: flex;
 
     li {
         list-style-type: none;
     }
-`
+`;
 
-
-export const StyledLinks_a = styled.a`
+export const StyledLink = styled(Link)`
     font-size: 13px;
     font-weight: normal;
     text-align: center;
@@ -24,5 +24,10 @@ export const StyledLinks_a = styled.a`
     background-color:${({ bg }) => bg}; 
     &:hover {
         background-color:${({ bg_hover }) => bg_hover};
-    }   
-`
+    }
+`;
+
+
+
+
+
