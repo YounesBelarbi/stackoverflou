@@ -1,8 +1,12 @@
 import { ThemeProvider } from 'styled-components';
+import { Routes, Route } from "react-router-dom";
 
 import Container from '../Layout/Container';
+import Home from '../Home/home';
+import Register from '../User/Register';
 
 import { GlobalStyle } from '../Styles/GlobalStyle';
+import Login from '../User/Login';
 
 
 const theme = {
@@ -19,7 +23,13 @@ function App() {
       <>
         <GlobalStyle />
         <Container className="container">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
 
+
+          </Routes>
         </Container>
       </>
     </ThemeProvider>
