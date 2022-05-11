@@ -1,8 +1,8 @@
 
-import { StyledRegister, StyledRegisterButton } from "../Styles/User/Register.styled";
+import { StyledRegister, StyledRegisterButton, SubmitButton } from "../Styles/User/Register.styled";
 import { FcGoogle } from 'react-icons/fc';
 import { FaGithub, FaFacebookSquare } from 'react-icons/fa';
-
+import { saveUser } from '../../api/user';
 import { useState } from "react";
 
 const Register = () => {
@@ -13,7 +13,8 @@ const Register = () => {
     const [password, setPassword] = useState("");
 
 
-    const onSubmitForm = () => {
+    const onSubmitForm = (e) => {
+        e.preventDefault();
         const data = {
             firstName,
             lastName,
@@ -22,7 +23,10 @@ const Register = () => {
             password
         }
 
-        console.log(data);
+        saveUser(data)
+            .then((response) => {
+                console.log(response);
+            })
     }
     return (
         <StyledRegister>
@@ -44,16 +48,13 @@ const Register = () => {
                     </div>
                     <div className="form-container">
                         <form action=""
-                            onSubmit={(e) => {
-                                e.preventDefault();
-                                onSubmitForm();
-                            }}
+                            onSubmit={(e) => onSubmitForm(e)}
                         >
                             <div>
                                 <label htmlFor="firstName">
                                     Prénom
                                 </label>
-                                <input type="text" name="firstName" value={firstName} onChange={(e) => { setFirstName(e.target.value); console.log(e.target.value) }} />
+                                <input type="text" name="firstName" value={firstName} onChange={(e) => { setFirstName(e.target.value) }} />
                             </div>
                             <div>
 
@@ -65,7 +66,7 @@ const Register = () => {
                             <div>
 
                                 <label htmlFor="nickName">
-                                    Pseud
+                                    Pseudo
                                 </label>
                                 <input type="text" name="nickName" value={nickName} onChange={(e) => setNickName(e.target.value)} />
                             </div>
@@ -86,13 +87,14 @@ const Register = () => {
 
                             <span></span>
 
-                            <StyledRegisterButton bg="#0a95ff" color="#fff" type="submit">Valider</StyledRegisterButton>
+                            <SubmitButton bg="#0a95ff" color="#red" >Valider</SubmitButton>
+
 
                         </form>
                     </div>
                 </div>
             </div>
-        </StyledRegister>
+        </StyledRegister >
     )
 }
 
