@@ -1,16 +1,13 @@
 import styled from 'styled-components';
 
 export const StyledRegister = styled.section`
-
     .register-container {
-
         display: flex;
         justify-content: center;
         padding: 20px 0;
         margin: 0 auto;
         padding: 25px 30px;
     }
-
 
     .left-section {
         width: 25%;
@@ -19,8 +16,6 @@ export const StyledRegister = styled.section`
         @media (max-width: 768px) {
             display:none;
         }
-        
-
     }
 
     .right-section {
@@ -84,7 +79,6 @@ export const StyledRegister = styled.section`
 `;
 
 export const StyledRegisterButton = styled.button`
-
     background-color: ${({ bg }) => bg};
     color: ${({ color }) => color};
     box-shadow: 5px 0px 32px -10px rgb(61 61 61 / 48%);
@@ -93,7 +87,14 @@ export const StyledRegisterButton = styled.button`
     width: 80%;
     height:33px;
     margin: 4px 0
-    
 
 `;
 
+
+export const SubmitButton = styled(StyledRegisterButton)`
+  :hover {
+        cursor: pointer;
+        background-color: #0074cc
+
+  }
+`;
